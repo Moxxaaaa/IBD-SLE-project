@@ -1,0 +1,65 @@
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--ref-ld-chr /content/drive/MyDrive/eas_w_ld_chr/ \
+--out /content/drive/MyDrive/ldsc/rg/rg_SLE_CD \
+--rg /content/drive/MyDrive/ldsc/munge/SLE_CN_sumstats.sumstats.gz,/content/drive/MyDrive/ldsc/munge/CD_eas_sumstats.sumstats.gz \
+--w-ld-chr /content/drive/MyDrive/eas_w_ld_chr/ 
+
+Beginning analysis at Thu Aug 10 05:54:59 2023
+Reading summary statistics from /content/drive/MyDrive/ldsc/munge/SLE_CN_sumstats.sumstats.gz ...
+Read summary statistics for 880179 SNPs.
+Reading reference panel LD Score from /content/drive/MyDrive/eas_w_ld_chr/[1-22] ... (ldscore_fromlist)
+Read reference panel LD Scores for 1208050 SNPs.
+Removing partitioned LD Scores with zero variance.
+Reading regression weight LD Score from /content/drive/MyDrive/eas_w_ld_chr/[1-22] ... (ldscore_fromlist)
+Read regression weight LD Scores for 1208050 SNPs.
+After merging with reference panel LD, 880179 SNPs remain.
+After merging with regression SNP LD, 880179 SNPs remain.
+Computing rg for phenotype 2/2
+Reading summary statistics from /content/drive/MyDrive/ldsc/munge/CD_eas_sumstats.sumstats.gz ...
+Read summary statistics for 1217311 SNPs.
+After merging with summary statistics, 880179 SNPs remain.
+875559 SNPs with valid alleles.
+
+Heritability of phenotype 1
+---------------------------
+Total Observed scale h2: 0.352 (0.1082)
+Lambda GC: 1.0864
+Mean Chi^2: 1.1772
+Intercept: 1.0733 (0.0173)
+Ratio: 0.4138 (0.0974)
+
+Heritability of phenotype 2/2
+-----------------------------
+Total Observed scale h2: 0.4598 (0.066)
+Lambda GC: 1.1587
+Mean Chi^2: 1.2784
+Intercept: 1.0397 (0.0133)
+Ratio: 0.1425 (0.0478)
+
+Genetic Covariance
+------------------
+Total Observed scale gencov: -0.0102 (0.0284)
+Mean z1*z2: -0.0081
+Intercept: -0.0032 (0.0068)
+
+Genetic Correlation
+-------------------
+Genetic Correlation: -0.0253 (0.0744)
+Z-score: -0.3404
+P: 0.7335
+
+
+Summary of Genetic Correlation Results
+                                                            p1                                                             p2      rg      se       z       p  h2_obs  h2_obs_se  h2_int  h2_int_se  gcov_int  gcov_int_se
+ /content/drive/MyDrive/ldsc/munge/SLE_CN_sumstats.sumstats.gz  /content/drive/MyDrive/ldsc/munge/CD_eas_sumstats.sumstats.gz -0.0253  0.0744 -0.3404  0.7335  0.4598      0.066  1.0397     0.0133   -0.0032       0.0068
+
+Analysis finished at Thu Aug 10 05:55:16 2023
+Total time elapsed: 17.24s
