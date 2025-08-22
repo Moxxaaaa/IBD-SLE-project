@@ -25,12 +25,12 @@ for (phe in phe_c) {
     id1=temp[i,"id"]
     cs=f1[[id1]][["results"]]
     cs %<>% arrange(desc(SNP.PP.H4)) 
-    #-------------提取想要的数据-------------------------#
+
     PPH3=as.numeric(f1[[id1]][["summary"]][5])
     PPH4=as.numeric(f1[[id1]][["summary"]][6])
     Best.causal.SNP=cs[1,"snp"]
     SNP_PP_H4=cs[1,"SNP.PP.H4"]
-    #------------放入应该放入的地方----------------#
+
     temp[temp$id==id1,"PP.H3"]=PPH3
     temp[temp$id==id1,"PP.H4"]=PPH4
     temp[temp$id==id1,"Best_causal_SNP"]=Best.causal.SNP
@@ -47,6 +47,7 @@ temp %<>%
 
 write.csv(temp,
           file="single-coloc_result.csv")
+
 
 
 
