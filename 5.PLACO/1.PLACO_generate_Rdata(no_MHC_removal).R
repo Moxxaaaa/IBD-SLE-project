@@ -3,16 +3,16 @@ library(magrittr)
 library(tidyverse)
 library(ggplot2)
 library(readxl)
-###创建文件夹
+
 if(!dir.exists(paste0(path_prefix,file_name))){
   dir.create(paste0(path_prefix,file_name))
 } 
-#####文件夹创建PLACO子文件夹
+
 if(!dir.exists(paste0(path_prefix,file_name,"\\PLACO"))){
   dir.create(paste0(path_prefix,file_name,"\\PLACO"))
 } 
 
-####循环#####
+####loop#####
 for (m in sumstats1_for) {
   for (n in sumstats2_for) {
     load(PLACO_path)#####载入PLACO
@@ -20,19 +20,18 @@ for (m in sumstats1_for) {
     sumstats2=n
     if(!dir.exists(paste0(path_prefix,file_name,"/PLACO/",sumstats1,"-",sumstats2))){
       dir.create(paste0(path_prefix,file_name,"/PLACO/",sumstats1,"-",sumstats2))
-    }####创建子文件夹
+    }
     setwd(paste0(path_prefix,file_name,"/PLACO/",sumstats1,"-",sumstats2))
     
-    f1<-code[code$表型==m,"文件位置"]####获取文件路径
-    f2<-code[code$表型==n,"文件位置"]####获取文件路径
-    f1<-fread(f1)
+    f1<-code[code$py==m,"filedir"]
+    f2<-code[code$py==n,"filedir"]
     f2<-fread(f2)
     f12<-inner_join(f1,f2,by=c("SNP","CHR","POS","A1","A2"),suffix=c(".f1", ".f2"))
     rm(f1)
     rm(f2)
     gc()
     
-    ###增加Z_col,并剔除Z^2>80
+    ###Z^2<80
     f12 %<>%
       mutate(Z.f1=BETA.f1/SE.f1) %>% 
       mutate(Z.f2=BETA.f2/SE.f2) %>%   
@@ -61,15 +60,15 @@ for (m in sumstats1_for) {
     
     
     #### decorrelating the Z-scores
-    R <- cor.pearson(Z.matrix, P.matrix, p.threshold=1e-4)###计算Z的相关度
+    R <- cor.pearson(Z.matrix, P.matrix, p.threshold=1e-4)
     "%^%" <- function(x, pow)
-      with(eigen(x), vectors %*% (values^pow * t(vectors)))####创建公式
+      with(eigen(x), vectors %*% (values^pow * t(vectors)))
     Z.matrix.decor <- Z.matrix %*% (R %^% (-0.5)) ###decor
     colnames(Z.matrix.decor) <- paste("Z",1:k,sep="")
     
     VarZ <- var.placo(Z.matrix.decor, P.matrix, p.threshold=1e-4)
     
-    ####删除不相关的
+
     rm(f12)
     rm(Z.matrix)
     rm(P.matrix)
@@ -83,4 +82,5 @@ for (m in sumstats1_for) {
     print(paste(m,n,sep = "-"))
     
   }
+
 }
